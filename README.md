@@ -1,2 +1,21 @@
-# MCS.ModbusToolkit
-https://chatgpt.com/g/g-p-6a9e049a7ab88191a9748bebf8c68a83-mcs-osjs/c/6ab5b1d5-c938-83ec-bbe9-c5ff734e4f7b#:~:text=Standalone%20desktop%20toolkit%20for%20Modbus%20simulation%2C%20replication%2C%20and%20memory%20management%2C%20powered%20by%20MMA2
+# MCS Modbus Toolkit
+
+Standalone desktop toolkit for Modbus simulation, replication, and memory management, powered by MMA2.
+
+This repository is the standalone desktop deployment of the MCS Modbus Toolkit. The application currently uses Electron and is independent of the MCS.OSJS deployment repository.
+
+## Components
+
+- Memory / MMA2 management
+- Modbus Simulator
+- Modbus Replicator
+- Diagnostics
+
+## Development
+
+```bash
+npm ci
+npm start
+```
+
+The repository root is the Electron application root. Runtime executables used by packaged deployments belong under `bin/`; generated installers belong under `dist/` and are not source-controlled.
