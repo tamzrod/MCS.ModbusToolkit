@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCS Modbus Toolkit</title>
+  <link rel="icon" type="image/svg+xml" href="../build/replicator-logo.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="titlebar">
+      <div>
+        <strong>MCS Modbus Toolkit</strong>
+        <span class="subtitle">Memory + Replicator</span>
+      </div>
+      <div class="runtime-strip">
+        <span>MMA2 <b id="status-mma2">-</b></span>
+        <span>Replicator <b id="status-replicator">-</b></span>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Application tabs">
+      <button class="tab active" data-tab="simulator">Memory</button>
+      <button class="tab" data-tab="replicator">Replicator</button>
+      <button class="tab" data-tab="diagnostics">Diagnostics</button>
+    </nav>
+
+    <main class="content">
+      <section class="panel active" id="panel-simulator">
+        <div id="simulator-root" class="tool-root"></div>
+      </section>
+
+      <section class="panel" id="panel-replicator">
+        <div id="replicator-root" class="tool-root"></div>
+      </section>
+
+      <section class="panel" id="panel-diagnostics">
+        <div class="diagnostic-actions">
+          <button id="diagnostics-refresh">Refresh checks</button>
+          <button id="diagnostics-copy" disabled>Copy report</button>
+          <span id="diagnostics-time" role="status">Read-only snapshot; refresh for current evidence.</span>
+        </div>
+        <div id="diagnostics-results" aria-live="polite"></div>
+        <div class="diagnostic-actions">
+          <button id="start-all">Start runtimes</button>
+          <button id="stop-all">Stop runtimes</button>
+        </div>
+        <div class="paths">
+          <div><strong>Simulator service:</strong> <span id="diag-status-simulator">-</span></div>
+          <div><strong>Runtime mode:</strong> <span id="runtime-mode">-</span></div>
+          <div><strong>Binary folder:</strong> <span id="bin-path">-</span></div>
+          <div><strong>Data folder:</strong> <span id="data-path">-</span></div>
+        </div>
+        <pre id="log"></pre>
+      </section>
+    </main>
+  </div>
+  <script src="comms-status.js"></script>
+  <script src="memory-advanced.js"></script>
+  <script src="app.js"></script>
+  <script src="diagnostics.js"></script>
+</body>
+</html>

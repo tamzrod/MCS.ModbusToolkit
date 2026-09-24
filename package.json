@@ -1,0 +1,69 @@
+{
+  "name": "mcs-modbus-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Standalone Windows desktop shell for MCS Modbus Simulator and Replicator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:settings-access": "cd build/settings-access && go build -o ../../bin/mcs-settings-access.exe .",
+    "dist:win": "npm run build:settings-access && electron-builder --win nsis",
+    "pack:win": "electron-builder --win dir"
+  },
+  "devDependencies": {
+    "electron": "^32.3.3",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.mcs.modbustoolkit",
+    "productName": "MCS Modbus Toolkit",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "replicator-runtime.js",
+      "replicator-ipc.js",
+      "runtime-status.js",
+      "diagnostics.js",
+      "memory-settings.js",
+      "renderer/**/*",
+      "build/icon.png",
+      "build/replicator-logo.svg",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "MCS-Modbus-Toolkit-${version}-Setup.${ext}"
+    },
+    "nsis": {
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "include": "build/installer.nsh",
+      "uninstallDisplayName": "MCS Modbus Toolkit"
+    }
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
