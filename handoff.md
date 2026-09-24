@@ -2,53 +2,55 @@
 
 ## Current state
 
-Initial standalone migration completed from the former `MCS.OSJS/electron` donor into the repository root.
+Repository reorganized as a multi-target MCS Modbus Toolkit product family.
 
-The migration intentionally excludes OS.js, ICC, workflow/planning history, Simulator/Replicator/MMA2 Go source trees, backup `.bak` files, and the old `build-and-push.ps1` script because that script depended on sibling source directories from the old monorepo.
+The migrated Electron implementation now lives entirely under `desktop/`.
 
-No local runtime verification has been claimed yet.
+Reserved target directories:
+
+- `mobile/` — future mobile-specific implementation
+- `shared/` — future shared contracts/formats only
+- `docs/` — product-level documentation
+
+No local runtime verification has been claimed yet. Perform the desktop verification on the Windows development machine.
 
 ## OpenCode test instruction
 
-You are working in the standalone `MCS.ModbusToolkit` repository.
+Work only in this repository. The current implementation under test is `desktop/`.
 
 ### Goal
 
-Verify that the migrated Electron application is independently usable from this repository root. Do not redesign, refactor, add features, or silently repair failures.
+Verify that the migrated Electron desktop application is independently usable from `desktop/`. Do not redesign, refactor, add features, or silently repair failures.
 
 ### Checks
 
-1. Inspect the repository and report any runtime/source dependency that points back to `MCS.OSJS`, `OSJS/`, `../electron/`, or another parent repository.
-2. Confirm `package.json` treats this repository root as the Electron application root.
-3. Run JavaScript syntax checks on production JavaScript files.
-4. Install dependencies strictly from the lockfile with:
-   ```bash
+1. From repository root, inspect for runtime/source dependencies that point back to `MCS.OSJS`, `OSJS/`, the former root layout, or another parent repository.
+2. Change directory to:
+   ```powershell
+   cd desktop
+   ```
+3. Confirm `desktop/package.json` treats `desktop/` as the Electron application root.
+4. Run JavaScript syntax checks on production JavaScript files.
+5. Install dependencies strictly from the lockfile:
+   ```powershell
    npm ci
    ```
-5. Run the existing test suite:
-   ```bash
+6. Run the existing test suite:
+   ```powershell
    node --test test/*.test.js
    ```
-6. Verify Electron can resolve and launch from repository root with:
-   ```bash
+7. Verify Electron can resolve and launch:
+   ```powershell
    npm start
    ```
    Do not modify production runtime data or host services.
-7. Verify the build configuration references only files present in this repository.
-8. On Windows, inspect packaging prerequisites without installing, starting, stopping, or removing Windows services.
-9. Specifically report whether required runtime executables expected under `bin/` are present or absent and what that means for local development versus packaged execution.
+8. Verify build configuration references only files available to this standalone repository/deployment.
+9. Inspect Windows packaging prerequisites without installing, starting, stopping, or removing Windows services.
+10. Report whether runtime executables expected under `desktop/bin/` are present or absent and distinguish local-development blockers from packaged-runtime blockers.
 
 ### Required report
 
-For every check return:
-
-- PASS / FAIL / BLOCKED
-- exact command or inspection performed
-- exit code where applicable
-- missing files
-- stale MCS.OSJS / OS.js references
-- external path dependencies
-- required corrective changes
+For every check return PASS / FAIL / BLOCKED, exact command or inspection, exit code where applicable, missing files, stale old-layout or MCS.OSJS references, external path dependencies, and required corrective changes.
 
 ### Restrictions
 

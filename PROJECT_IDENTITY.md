@@ -8,26 +8,32 @@ Repository: `tamzrod/MCS.ModbusToolkit`
 
 ## Purpose
 
-Standalone desktop deployment of the MCS Modbus Toolkit.
+Standalone product-family repository for MCS Modbus Toolkit deployments outside MCS.OSJS.
 
-## Current implementation
+## Structure
 
-- Electron desktop application
-- Windows is the current primary packaged target
-- Linux desktop support may evolve independently
-- macOS may be added later
+- `desktop/` — Electron desktop implementation.
+- `mobile/` — mobile-specific implementation.
+- `shared/` — intentionally shared contracts and formats only.
+- `docs/` — product-level documentation.
 
-## Product components
+## Desktop deployment modes
 
-- Memory / MMA2 management
-- Modbus Simulator
-- Modbus Replicator
-- Diagnostics
+The desktop implementation may produce:
+
+- installed desktop packages
+- portable desktop packages
+
+A portable package should aim for one user-facing launch artifact with bundled MMA2, Simulator, and Replicator runtimes and no service installation requirement.
+
+## Mobile direction
+
+Mobile is a separate UI and runtime integration target. It may reuse product concepts and compatible contracts, but must not inherit desktop layout or Electron-specific assumptions.
 
 ## Repository boundary
 
-This is an independent product repository. `MCS.OSJS` is a separate OS.js/Linux deployment and is not the parent repository of this project.
+`MCS.OSJS` is a separate OS.js/Linux deployment and is not the parent repository of this project.
 
-The Electron implementation was initially migrated from the former `MCS.OSJS/electron` tree. Future development in this repository must not assume access to the MCS.OSJS checkout or parent-relative source paths.
+The initial desktop implementation was migrated from the former `MCS.OSJS/electron` tree. Development here must not require an MCS.OSJS checkout.
 
-Electron is the current desktop implementation technology; the product identity is **MCS Modbus Toolkit**.
+Electron is an implementation technology for `desktop/`; it is not the product identity.

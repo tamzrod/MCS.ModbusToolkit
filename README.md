@@ -1,21 +1,38 @@
 # MCS Modbus Toolkit
 
-Standalone desktop toolkit for Modbus simulation, replication, and memory management, powered by MMA2.
+MCS Modbus Toolkit is the standalone Toolkit product family for Modbus simulation, replication, and memory management, powered by MMA2.
 
-This repository is the standalone desktop deployment of the MCS Modbus Toolkit. The application currently uses Electron and is independent of the MCS.OSJS deployment repository.
+## Repository layout
 
-## Components
+```text
+MCS.ModbusToolkit/
+├── desktop/   # Electron desktop implementation
+├── mobile/    # Android/mobile implementation
+├── shared/    # Cross-target contracts and shared formats
+├── docs/      # Product-level documentation
+├── LICENSE
+├── PROJECT_IDENTITY.md
+└── handoff.md
+```
 
-- Memory / MMA2 management
-- Modbus Simulator
-- Modbus Replicator
-- Diagnostics
+### Desktop
 
-## Development
+The current working implementation lives in `desktop/`. Windows is the primary packaged target. Installed and portable distributions can be produced from the same desktop implementation.
+
+### Mobile
+
+`mobile/` is reserved for the mobile-specific Toolkit implementation. It should use a mobile UI and mobile lifecycle rather than attempting to run the Electron desktop UI.
+
+### Shared
+
+`shared/` is reserved for contracts or formats that genuinely need to stay identical across deployment targets. Do not move code here merely to remove duplication.
+
+## Desktop development
 
 ```bash
+cd desktop
 npm ci
 npm start
 ```
 
-The repository root is the Electron application root. Runtime executables used by packaged deployments belong under `bin/`; generated installers belong under `dist/` and are not source-controlled.
+`MCS.OSJS` remains a separate OS.js/Linux deployment repository.
