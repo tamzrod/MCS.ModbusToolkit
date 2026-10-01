@@ -30,9 +30,12 @@ The current working implementation lives in `desktop/`. Windows is the primary p
 ## Desktop development
 
 ```bash
-cd desktop
+cd desktop/installed
 npm ci
 npm start
 ```
+
+The portable edition is under development in `desktop/portable/`; see its
+[README](desktop/portable/README.md) for setup and current limitations.
 
 `MCS.OSJS` remains a separate OS.js/Linux deployment repository.

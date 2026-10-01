@@ -17,23 +17,29 @@ Closing the portable Toolkit must cleanly stop the child processes it started.
 
 ## TODO
 
-- [ ] Establish `portable/` as an independent Electron application root.
+- [x] Establish `portable/` as an independent Electron application root.
 - [ ] Reuse only product behavior/contracts that should remain common with the installed edition.
 - [ ] Bundle `mma2.exe`, `modbus-simulator-runtime.exe`, and `modbus-replicator-runtime.exe`.
-- [ ] Remove NSSM from the portable runtime and packaging path.
-- [ ] Do not create, modify, start, stop, or remove Windows services.
-- [ ] Implement child-process startup for MMA2, Simulator, and Replicator.
-- [ ] Track process ownership so the Toolkit stops only processes it started.
+- [x] Remove NSSM from the portable runtime and packaging path.
+- [x] Do not create, modify, start, stop, or remove Windows services.
+- [x] Implement child-process startup for MMA2, Simulator, and Replicator.
+- [x] Track process ownership so the Toolkit stops only processes it started.
 - [ ] Implement graceful shutdown with forced termination only as a fallback.
-- [ ] Define a portable data/config directory that stays with the portable package where practical.
+- [x] Define a portable data/config directory that stays with the portable package where practical.
 - [ ] Ensure multiple copies cannot accidentally fight over the same ports/data directory.
-- [ ] Adapt runtime status and diagnostics to child-process mode.
+- [x] Adapt runtime status and diagnostics to child-process mode.
 - [ ] Preserve Simulator, Replicator, memory-management, communications-status, and diagnostics functionality.
 - [ ] Define portable logging and bounded log retention.
-- [ ] Build a portable Windows distribution with no installer requirement.
+- [x] Build a portable Windows distribution with no installer requirement.
 - [ ] Verify the package runs on a clean Windows machine without Node.js, Go, NSSM, or service installation.
 - [ ] Add automated tests for startup, shutdown, missing binaries, port conflicts, config persistence, and abnormal child-process exits.
-- [ ] Document differences between Installed and Portable editions.
+- [x] Document differences between Installed and Portable editions.
+
+The initial foundation is implemented; checked implementation tasks are covered
+by automated tests where applicable, not real backend integration verification.
+See `README.md` for release blockers, including Windows graceful shutdown,
+MMA2 reload and conflicts between different portable copies. Logging is currently
+bounded and session-only. Windows portable executables have been built locally; clean-machine deployment verification remains pending.
 
 ## Non-goals
 
