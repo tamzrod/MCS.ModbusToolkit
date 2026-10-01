@@ -47,6 +47,20 @@ test('failed startup/readiness never writes an acknowledgement', async t => {
   assert.equal(fs.existsSync(watcher.ack), false);
 });
 
+
+test('failed readiness is retried without requiring another config save', async t => {
+  let attempts = 0;
+  const {watcher, hash, restarts} = fixture(t, {ready: async () => {
+    attempts++;
+    if (attempts === 1) throw new Error('temporary readiness failure');
+  }});
+  await assert.rejects(watcher.poll(), /temporary readiness failure/);
+  assert.equal(fs.existsSync(watcher.ack), false);
+  await watcher.poll();
+  assert.equal(restarts(), 2);
+  assert.equal(attempts, 2);
+  assert.equal(fs.readFileSync(watcher.ack, 'utf8'), hash);
+});
 test('changed configuration is not acknowledged as the original request', async t => {
   const {watcher} = fixture(t);
   watcher.ready = async () => fs.writeFileSync(watcher.config, 'debug: true\n');
