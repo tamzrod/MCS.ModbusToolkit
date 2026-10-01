@@ -69,7 +69,6 @@ class MMA2Restart {
     try { body = fs.readFileSync(this.request, 'utf8'); }
     catch (error) { if (error.code === 'ENOENT') { this.last = null; return; } throw error; }
     if (body === this.last) return;
-    this.last = body;
     const request = yaml.load(body);
     if (!/^[a-f0-9]{64}$/.test(request?.config_sha256 || '')) throw new Error('Invalid configuration fingerprint');
     const ports = request.ports || [];
@@ -87,6 +86,9 @@ class MMA2Restart {
     const temporary = this.ack + '.tmp';
     fs.writeFileSync(temporary, request.config_sha256);
     fs.renameSync(temporary, this.ack);
+    // Mark the request complete only after the matching configuration is ready and acknowledged.
+    // Failed validation/restart/readiness attempts remain retryable on the next poll.
+    this.last = body;
     this.log('MMA2 restarted and configuration acknowledged');
   }
 }
