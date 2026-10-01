@@ -1,0 +1,62 @@
+{
+  "name": "mcs-modbus-toolkit-portable",
+  "version": "0.1.1",
+  "private": true,
+  "description": "Standalone desktop toolkit for Modbus simulation, replication, and memory management, powered by MMA2. Portable edition.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "check:payload": "node build/check-payload.js",
+    "dist:win": "npm run check:payload && electron-builder --win portable",
+    "pack:win": "npm run check:payload && electron-builder --win dir"
+  },
+  "devDependencies": {
+    "electron": "^32.3.3",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.mcs.modbustoolkit.portable",
+    "productName": "MCS Modbus Toolkit Portable",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "replicator-runtime.js",
+      "replicator-ipc.js",
+      "diagnostics.js",
+      "memory-settings.js",
+      "renderer/**/*",
+      "build/icon.png",
+      "build/replicator-logo.svg",
+      "package.json",
+      "portable-runtime.js",
+      "mma2-restart.js"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "mma2.exe",
+          "modbus-simulator-runtime.exe",
+          "modbus-replicator-runtime.exe"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "portable"
+      ],
+      "artifactName": "MCS-Modbus-Toolkit-${version}-Portable.${ext}",
+      "requestedExecutionLevel": "asInvoker"
+    }
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
