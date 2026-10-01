@@ -30,7 +30,7 @@ Closing the portable Toolkit must cleanly stop the child processes it started.
 - [x] Adapt runtime status and diagnostics to child-process mode.
 - [ ] Preserve Simulator, Replicator, memory-management, communications-status, and diagnostics functionality.
 - [ ] Define portable logging and bounded log retention.
-- [ ] Build a portable Windows distribution with no installer requirement.
+- [x] Build a portable Windows distribution with no installer requirement.
 - [ ] Verify the package runs on a clean Windows machine without Node.js, Go, NSSM, or service installation.
 - [ ] Add automated tests for startup, shutdown, missing binaries, port conflicts, config persistence, and abnormal child-process exits.
 - [x] Document differences between Installed and Portable editions.
@@ -39,7 +39,7 @@ The initial foundation is implemented; checked implementation tasks are covered
 by automated tests where applicable, not real backend integration verification.
 See `README.md` for release blockers, including Windows graceful shutdown,
 MMA2 reload and conflicts between different portable copies. Logging is currently
-bounded and session-only. Packaging configuration exists but no package has been built.
+bounded and session-only. Windows portable executables have been built locally; clean-machine deployment verification remains pending.
 
 ## Non-goals
 
